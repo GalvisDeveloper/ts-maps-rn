@@ -1,15 +1,15 @@
 import { Platform, PlatformOSType } from "react-native";
 
-import { PERMISSIONS, PermissionStatus as RNPermissionStatus, openSettings, request } from 'react-native-permissions';
+import { PERMISSIONS, PermissionStatus as RNPermissionStatus, check, openSettings, request } from 'react-native-permissions';
 import { PermissionStatus } from "../../infraestructure/interfaces/permissions"
 
-let status: RNPermissionStatus = 'unavailable';
+let status: PermissionStatus = 'unavailable';
 
 export const requestLocationPermission = async (): Promise<PermissionStatus> => {
 
     try {
 
-        let STATUS_PLATFORM: Record<PlatformOSType, PermissionStatus> = {
+        let STATUS_PLATFORM: Record<PlatformOSType, RNPermissionStatus> = {
             ios: await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE),
             android: await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION),
             windows: 'unavailable',
@@ -22,7 +22,7 @@ export const requestLocationPermission = async (): Promise<PermissionStatus> => 
 
         if (status === 'blocked') {
             await openSettings();
-            //TODO: return await // checkLocationPermission();
+            return await checkLocationPermission();
         }
 
         const permissionMapper: Record<RNPermissionStatus, PermissionStatus> = {
@@ -46,9 +46,9 @@ export const checkLocationPermission = async (): Promise<PermissionStatus> => {
 
     try {
 
-        let STATUS_PLATFORM: Record<PlatformOSType, PermissionStatus> = {
-            ios: await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE),
-            android: await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION),
+        let STATUS_PLATFORM: Record<PlatformOSType, RNPermissionStatus> = {
+            ios: await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE),
+            android: await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION),
             windows: 'unavailable',
             macos: 'unavailable',
             web: 'unavailable',

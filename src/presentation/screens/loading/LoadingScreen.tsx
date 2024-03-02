@@ -1,18 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { globalStyles } from '../../../config/theme/styles';
 
 const LoadingScreen = () => {
 	return (
-		<View>
-			<Text style={styles.txt}>LoadingScreen</Text>
+		<View style={globalStyles.ctGlobal}>
+			<Text style={globalStyles.text}>LoadingScreen</Text>
 		</View>
 	);
 };
 
 export default LoadingScreen;
 
-const styles = StyleSheet.create({
-	txt: {
-		color: 'red',
-	},
-});
+const styles = StyleSheet.create({});

@@ -4,4 +4,5 @@ export type PermissionStatus =
     | 'denied'
     | 'unavailable'
     | 'blocked'
-    | 'limited'; 
+    | 'limited'
+    | 'unknown'; 
