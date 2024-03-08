@@ -8,7 +8,7 @@ interface Props {
 	initialLocation: ILocation;
 }
 
-const Map = ({ showsUserLocation, initialLocation }: Props) => {
+const Map = ({ showsUserLocation = true, initialLocation }: Props) => {
 	return (
 		<View style={styles.container}>
 			<MapView

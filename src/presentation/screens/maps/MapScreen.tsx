@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Map from '../../components/maps/Map';
 import useLocationStore from '../../store/location/useLocationStore';
 import LoadingScreen from '../loading/LoadingScreen';
 
 const MapScreen = () => {
-	const { lastKnownLocation } = useLocationStore();
+	const { lastKnownLocation, getLocation } = useLocationStore();
+
+	useEffect(() => {
+		if (lastKnownLocation === null) getLocation();
+	}, []);
 
 	if (lastKnownLocation === null) return <LoadingScreen />;
 
@@ -21,9 +25,5 @@ export default MapScreen;
 const styles = StyleSheet.create({
 	ct: {
 		...StyleSheet.absoluteFillObject,
-		// height: 'auto',
-		// width: 'auto',
-		// justifyContent: 'flex-end',
-		// alignItems: 'center',
 	},
 });
