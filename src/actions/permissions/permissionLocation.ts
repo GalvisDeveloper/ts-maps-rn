@@ -1,11 +1,11 @@
 import { Platform, PlatformOSType } from "react-native";
 
 import { PERMISSIONS, PermissionStatus as RNPermissionStatus, check, openSettings, request } from 'react-native-permissions';
-import { PermissionStatus } from "../../infraestructure/interfaces/permissions"
+import { IPermissionStatus } from "../../infraestructure/interfaces/ipermissions"
 
-let status: PermissionStatus = 'unavailable';
+let status: IPermissionStatus = 'unavailable';
 
-export const requestLocationPermission = async (): Promise<PermissionStatus> => {
+export const requestLocationPermission = async (): Promise<IPermissionStatus> => {
 
     try {
 
@@ -25,7 +25,7 @@ export const requestLocationPermission = async (): Promise<PermissionStatus> => 
             return await checkLocationPermission();
         }
 
-        const permissionMapper: Record<RNPermissionStatus, PermissionStatus> = {
+        const permissionMapper: Record<RNPermissionStatus, IPermissionStatus> = {
             granted: 'granted',
             denied: 'denied',
             blocked: 'blocked',
@@ -42,7 +42,7 @@ export const requestLocationPermission = async (): Promise<PermissionStatus> => 
 
 }
 
-export const checkLocationPermission = async (): Promise<PermissionStatus> => {
+export const checkLocationPermission = async (): Promise<IPermissionStatus> => {
 
     try {
 
@@ -57,7 +57,7 @@ export const checkLocationPermission = async (): Promise<PermissionStatus> => {
 
         status = STATUS_PLATFORM[Platform.OS];
 
-        const permissionMapper: Record<RNPermissionStatus, PermissionStatus> = {
+        const permissionMapper: Record<RNPermissionStatus, IPermissionStatus> = {
             granted: 'granted',
             denied: 'denied',
             blocked: 'blocked',

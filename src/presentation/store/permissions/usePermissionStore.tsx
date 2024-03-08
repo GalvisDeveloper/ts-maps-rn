@@ -1,11 +1,11 @@
 import { create } from 'zustand';
-import { requestLocationPermission, checkLocationPermission } from '../../../actions/permissions/location';
-import { PermissionStatus } from '../../../infraestructure/interfaces/permissions';
+import { requestLocationPermission, checkLocationPermission } from '../../../actions/permissions/permissionLocation';
+import { IPermissionStatus } from '../../../infraestructure/interfaces/ipermissions';
 
 interface PermissionState {
-	locationStatus: PermissionStatus;
-	requestLocationPermission: () => Promise<PermissionStatus>;
-	checkLocationPermission: () => Promise<PermissionStatus>;
+	locationStatus: IPermissionStatus;
+	requestLocationPermission: () => Promise<IPermissionStatus>;
+	checkLocationPermission: () => Promise<IPermissionStatus>;
 }
 
 const usePermissionStore = create<PermissionState>()((set) => ({

@@ -1,5 +1,5 @@
 
-export type PermissionStatus =
+export type IPermissionStatus =
     | 'granted'
     | 'denied'
     | 'unavailable'
