@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ts_maps_rn</string>
+    <string name="maps_api_key">${REACT_NATIVE_MAPS_API_KEY}</string>
 </resources>

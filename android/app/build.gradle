@@ -8,6 +8,12 @@ project.ext.vectoricons = [
 
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
 
+project.ext.envConfigFiles = [
+    debug: ".env",
+    release: ".env"
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 /**
  * This is the configuration block to customize your React Native Android app.

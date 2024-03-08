@@ -4,6 +4,10 @@ import { StyleSheet } from 'react-native';
 import Navigator from './presentation/navigation/Navigator';
 import PermissionsChecker from './presentation/providers/PermissionsChecker';
 
+import { enableLatestRenderer } from 'react-native-maps';
+
+enableLatestRenderer();
+
 const MapsApp = () => {
 	return (
 		<NavigationContainer>
