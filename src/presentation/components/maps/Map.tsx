@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { ILocation } from '../../../infraestructure/interfaces/ilocation';
+import FAB from '../ui/FAB';
+import useLocationStore from '../../store/location/useLocationStore';
 
 interface Props {
 	showsUserLocation?: boolean;
@@ -9,10 +11,27 @@ interface Props {
 }
 
 const Map = ({ showsUserLocation = true, initialLocation }: Props) => {
+	const mapRef = useRef<MapView | null>();
+
+	const { getLocation } = useLocationStore();
+
+	const moveCameraLocation = (location: ILocation) => {
+		if (mapRef.current) {
+			mapRef.current.animateCamera({ center: location });
+		}
+	};
+
+	const moveToCurrentLocation = async () => {
+		const location = await getLocation();
+		if (!location) return;
+		moveCameraLocation(location);
+	};
+
 	return (
 		<View style={styles.container}>
 			<MapView
-				provider={Platform.OS === 'ios' ? undefined : PROVIDER_GOOGLE} // remove if not using Google Maps
+				ref={(map) => (mapRef.current = map!)}
+				provider={Platform.OS === 'ios' ? undefined : PROVIDER_GOOGLE}
 				style={styles.map}
 				region={{
 					latitude: initialLocation.latitude,
@@ -29,6 +48,8 @@ const Map = ({ showsUserLocation = true, initialLocation }: Props) => {
 					image={require('../../../assets/customMarker.jpg')}
 				/> */}
 			</MapView>
+
+			<FAB iconName='compass-outline' onPress={() => moveToCurrentLocation()} style={{ bottom: 20, right: 20 }} />
 		</View>
 	);
 };
